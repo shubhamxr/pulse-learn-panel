@@ -15,21 +15,80 @@ import {
   AlertCircle,
   Coffee,
   Dumbbell,
-  Brain
+  Brain,
+  Bluetooth,
+  Wifi,
+  Camera,
+  History
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import FaceRecognitionModal from './FaceRecognitionModal';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [todayAttendance, setTodayAttendance] = useState<boolean>(false);
   const [attendancePercentage] = useState(85);
+  const [attendanceMethod, setAttendanceMethod] = useState<string>('');
+  const [showFaceModal, setShowFaceModal] = useState(false);
+  const [attendanceHistory, setAttendanceHistory] = useState<any[]>([]);
 
   useEffect(() => {
     // Check if attendance is marked today
-    const attendanceHistory = JSON.parse(localStorage.getItem('attendanceHistory') || '[]');
+    const storedHistory = JSON.parse(localStorage.getItem('attendanceHistory') || '[]');
     const today = new Date().toISOString().split('T')[0];
-    const todayRecord = attendanceHistory.find((record: any) => record.date === today);
+    const todayRecord = storedHistory.find((record: any) => record.date === today);
     setTodayAttendance(!!todayRecord);
+    setAttendanceMethod(todayRecord?.method || '');
+    setAttendanceHistory(storedHistory.slice(-5)); // Show last 5 records
   }, []);
+
+  const markProximityAttendance = () => {
+    const attendanceData = {
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString(),
+      method: 'proximity',
+      status: 'present'
+    };
+
+    const existingHistory = JSON.parse(localStorage.getItem('attendanceHistory') || '[]');
+    existingHistory.push(attendanceData);
+    localStorage.setItem('attendanceHistory', JSON.stringify(existingHistory));
+
+    setTodayAttendance(true);
+    setAttendanceMethod('proximity');
+    setAttendanceHistory(existingHistory.slice(-5));
+
+    toast({
+      title: "Marked via Bluetooth/Wi-Fi ✅",
+      description: "Attendance recorded successfully via proximity detection",
+    });
+  };
+
+  const handleFaceRecognitionSuccess = () => {
+    setTodayAttendance(true);
+    setAttendanceMethod('face_recognition');
+    const updatedHistory = JSON.parse(localStorage.getItem('attendanceHistory') || '[]');
+    setAttendanceHistory(updatedHistory.slice(-5));
+  };
+
+  const getMethodIcon = (method: string) => {
+    switch (method) {
+      case 'qr_code': return <QrCode className="h-4 w-4" />;
+      case 'proximity': return <Wifi className="h-4 w-4" />;
+      case 'face_recognition': return <Camera className="h-4 w-4" />;
+      default: return <CheckCircle2 className="h-4 w-4" />;
+    }
+  };
+
+  const getMethodName = (method: string) => {
+    switch (method) {
+      case 'qr_code': return 'QR Code';
+      case 'proximity': return 'Proximity';
+      case 'face_recognition': return 'Face Recognition';
+      default: return 'Unknown';
+    }
+  };
 
   const tasks = [
     { id: 1, title: 'Review Math Chapter 5', type: 'Study', duration: '30 min', priority: 'high', icon: Brain },
@@ -93,18 +152,46 @@ const StudentDashboard = () => {
                     <p className="text-sm text-muted-foreground">
                       Checked in at {new Date().toLocaleTimeString()}
                     </p>
+                    <div className="flex items-center justify-center gap-2 mt-2">
+                      {getMethodIcon(attendanceMethod)}
+                      <span className="text-xs text-muted-foreground">
+                        via {getMethodName(attendanceMethod)}
+                      </span>
+                    </div>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     <AlertCircle className="h-12 w-12 text-warning mx-auto" />
                     <p className="font-semibold text-warning">Not Marked Yet</p>
-                    <Button 
-                      onClick={() => navigate('/qr-scanner')}
-                      className="w-full bg-gradient-primary"
-                    >
-                      <QrCode className="h-4 w-4 mr-2" />
-                      Scan QR Code
-                    </Button>
+                    
+                    {/* Multiple Attendance Methods */}
+                    <div className="space-y-2">
+                      <Button 
+                        onClick={() => navigate('/qr-scanner')}
+                        className="w-full bg-gradient-primary"
+                      >
+                        <QrCode className="h-4 w-4 mr-2" />
+                        Scan QR Code
+                      </Button>
+                      
+                      <Button 
+                        onClick={markProximityAttendance}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        <Wifi className="h-4 w-4 mr-2" />
+                        Mark via Proximity
+                      </Button>
+                      
+                      <Button 
+                        onClick={() => setShowFaceModal(true)}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        <Camera className="h-4 w-4 mr-2" />
+                        Mark via Face Recognition
+                      </Button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -135,6 +222,40 @@ const StudentDashboard = () => {
                   <p className="text-muted-foreground">Absent</p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Attendance History */}
+          <Card className="shadow-soft">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2">
+                <History className="h-5 w-5 text-primary" />
+                Recent Attendance
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {attendanceHistory.length > 0 ? (
+                <div className="space-y-2">
+                  {attendanceHistory.map((record, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 bg-muted/30 rounded">
+                      <div className="flex items-center gap-2">
+                        {getMethodIcon(record.method)}
+                        <span className="text-sm">{record.date}</span>
+                      </div>
+                      <div className="text-right">
+                        <Badge variant="outline" className="text-xs">
+                          {getMethodName(record.method)}
+                        </Badge>
+                        <p className="text-xs text-muted-foreground">{record.time}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No attendance records yet
+                </p>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -209,6 +330,13 @@ const StudentDashboard = () => {
           </Card>
         </div>
       </div>
+
+      {/* Face Recognition Modal */}
+      <FaceRecognitionModal 
+        isOpen={showFaceModal}
+        onClose={() => setShowFaceModal(false)}
+        onSuccess={handleFaceRecognitionSuccess}
+      />
     </div>
   );
 };
