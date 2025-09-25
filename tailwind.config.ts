@@ -80,15 +80,26 @@ export default {
         "gradient-secondary": "var(--gradient-secondary)",
         "gradient-accent": "var(--gradient-accent)",
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-card": "var(--gradient-card)",
       },
       boxShadow: {
         "soft": "var(--shadow-soft)",
         "medium": "var(--shadow-medium)",
         "large": "var(--shadow-large)",
+        "xl": "var(--shadow-xl)",
       },
       transitionTimingFunction: {
         "smooth": "var(--transition-smooth)",
         "bounce": "var(--transition-bounce)",
+        "spring": "var(--transition-spring)",
+      },
+      spacing: {
+        "xs": "var(--spacing-xs)",
+        "sm": "var(--spacing-sm)",
+        "md": "var(--spacing-md)",
+        "lg": "var(--spacing-lg)",
+        "xl": "var(--spacing-xl)",
+        "2xl": "var(--spacing-2xl)",
       },
       keyframes: {
         "accordion-down": {
