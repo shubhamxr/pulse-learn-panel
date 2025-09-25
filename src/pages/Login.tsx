@@ -48,27 +48,27 @@ const Login = () => {
             <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
               <GraduationCap className="h-16 w-16" />
             </div>
-            <h1 className="text-5xl font-bold">EduTrack</h1>
+            <h1 className="text-5xl font-[Poppins-Bold]">EduTrack</h1>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 lg:mb-8 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-[Poppins-Bold] mb-6 lg:mb-8 leading-tight">
             Smart Attendance & 
-            <span className="block text-accent-light">Student Productivity</span>
+            <span className="block text-white text-accent-light">Student Productivity</span>
           </h2>
-          <p className="text-lg lg:text-xl opacity-90 mb-8 lg:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+          <p className="text-lg lg:text-xl font-[Poppins-Light] opacity-90 mb-8 lg:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
             Streamline attendance tracking and boost student productivity with our intelligent platform.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+          <div className=" font-[Poppins-Light] flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
             <div className="flex items-center gap-4 text-white/90 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
               <div className="p-2 bg-white/20 rounded-lg">
                 <BookOpen className="h-6 w-6" />
               </div>
-              <span className="font-medium">Real-time Tracking</span>
+              <span className="font-[Poppins-Medium]">Real-time Tracking</span>
             </div>
             <div className="flex items-center gap-4 text-white/90 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
               <div className="p-2 bg-white/20 rounded-lg">
                 <Users className="h-6 w-6" />
               </div>
-              <span className="font-medium">Smart Analytics</span>
+              <span className="font-[Poppins-Medium]">Smart Analytics</span>
             </div>
           </div>
         </div>
@@ -77,12 +77,12 @@ const Login = () => {
         <div className="w-full max-w-lg mx-auto animate-slide-up">
           <Card className="card-glass shadow-xl border-0">
             <CardHeader className="text-center pb-8">
-              <CardTitle className="text-3xl font-bold text-foreground mb-3">
+              <CardTitle className="text-3xl font-[Poppins-Bold] text-foreground mb-3">
                 Welcome Back
               </CardTitle>
-              <p className="text-muted-foreground text-lg">Choose your login type to continue</p>
+              <p className="text-muted-foreground text-lg font-[Poppins-Light]">Choose your login type to continue</p>
             </CardHeader>
-            <CardContent className="p-8">
+            <CardContent className="p-8 font-[Poppins-Light]">
               <Tabs defaultValue="student" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8 p-1 bg-muted/50">
                   <TabsTrigger value="student" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Student</TabsTrigger>
@@ -92,7 +92,7 @@ const Login = () => {
                 <TabsContent value="student">
                   <form onSubmit={handleStudentLogin} className="space-y-6">
                     <div className="space-y-3">
-                      <Label htmlFor="student-email" className="text-base font-medium">Student ID / Email</Label>
+                      <Label htmlFor="student-email" className="text-base font-[Poppins-Medium]">Student ID / Email</Label>
                       <Input
                         id="student-email"
                         type="text"
@@ -104,7 +104,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="student-password" className="text-base font-medium">Password</Label>
+                      <Label htmlFor="student-password" className="text-base font-[Poppins-Medium]">Password</Label>
                       <Input
                         id="student-password"
                         type="password"
@@ -124,7 +124,7 @@ const Login = () => {
                 <TabsContent value="teacher">
                   <form onSubmit={handleTeacherLogin} className="space-y-6">
                     <div className="space-y-3">
-                      <Label htmlFor="teacher-email" className="text-base font-medium">Teacher ID / Email</Label>
+                      <Label htmlFor="teacher-email" className="text-base font-[Poppins-Medium]">Teacher ID / Email</Label>
                       <Input
                         id="teacher-email"
                         type="text"
@@ -136,7 +136,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="teacher-password" className="text-base font-medium">Password</Label>
+                      <Label htmlFor="teacher-password" className="text-base font-[Poppins-Medium]">Password</Label>
                       <Input
                         id="teacher-password"
                         type="password"
@@ -156,7 +156,7 @@ const Login = () => {
               
               <div className="mt-8 text-center">
                 <div className="p-4 bg-muted/30 rounded-xl">
-                  <p className="text-sm text-muted-foreground font-medium">
+                  <p className="text-sm text-muted-foreground font-[Poppins-Medium]">
                     Demo credentials: any email/password combination works
                   </p>
                 </div>

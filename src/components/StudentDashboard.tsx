@@ -133,7 +133,7 @@ const StudentDashboard = () => {
             <Calendar className="h-8 w-8" />
           </div>
           <div className="text-center sm:text-left">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-2">Good morning, {localStorage.getItem('userName')?.split(' ')[0]}!</h1>
+            <h1 className="text-3xl lg:text-4xl font-[Poppins-Bold] mb-2">Good morning, {localStorage.getItem('userName')?.split(' ')[0]}!</h1>
             <p className="text-white/90 text-base lg:text-lg">Ready to make today productive? Here's your personalized dashboard.</p>
           </div>
         </div>
@@ -143,7 +143,7 @@ const StudentDashboard = () => {
         {/* Attendance Section */}
         <div className="lg:col-span-1 space-y-8">
           {/* Today's Attendance */}
-          <Card className="card-modern hover-lift animate-slide-up">
+          <Card className="card-modern font-[Poppins-Light] hover-lift animate-slide-up">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-xl">
                 <div className="p-2 bg-primary/10 rounded-lg">
@@ -158,7 +158,7 @@ const StudentDashboard = () => {
                   <div className="space-y-4">
                     <div className="p-4 bg-success/10 rounded-2xl">
                       <CheckCircle2 className="h-16 w-16 text-success mx-auto mb-3" />
-                      <p className="font-bold text-success text-lg">Marked Present</p>
+                      <p className="font-[Poppins-Bold] text-success text-lg">Marked Present</p>
                       <p className="text-sm text-muted-foreground">
                         Checked in at {new Date().toLocaleTimeString()}
                       </p>
@@ -167,7 +167,7 @@ const StudentDashboard = () => {
                       <div className="p-2 bg-primary/10 rounded-lg">
                         {getMethodIcon(attendanceMethod)}
                       </div>
-                      <span className="text-sm font-medium text-muted-foreground">
+                      <span className="text-sm dtext-muted-foreground">
                         via {getMethodName(attendanceMethod)}
                       </span>
                     </div>
@@ -176,7 +176,7 @@ const StudentDashboard = () => {
                   <div className="space-y-6">
                     <div className="p-4 bg-warning/10 rounded-2xl">
                       <AlertCircle className="h-16 w-16 text-warning mx-auto mb-3" />
-                      <p className="font-bold text-warning text-lg">Not Marked Yet</p>
+                      <p className="font-[Poppins-Bold] text-warning text-lg">Not Marked Yet</p>
                     </div>
                     
                     {/* Multiple Attendance Methods */}
@@ -214,7 +214,7 @@ const StudentDashboard = () => {
           </Card>
 
           {/* Attendance Stats */}
-          <Card className="card-modern hover-lift animate-slide-up">
+          <Card className=" font-[Poppins-Light] card-modern hover-lift animate-slide-up">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-xl">
                 <div className="p-2 bg-accent/10 rounded-lg">
@@ -225,25 +225,25 @@ const StudentDashboard = () => {
             </CardHeader>
             <CardContent className="p-6 space-y-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-gradient-primary mb-2">{attendancePercentage}%</div>
-                <p className="text-sm text-muted-foreground font-medium">Overall Attendance</p>
+                <div className="text-4xl font-[Poppins-Bold] text-gradient-primary mb-2">{attendancePercentage}%</div>
+                <p className="text-sm text-muted-foreground font-[Poppins-Light]">Overall Attendance</p>
               </div>
               <Progress value={attendancePercentage} className="h-3 bg-muted" />
               <div className="grid grid-cols-2 gap-6 text-center">
                 <div className="p-4 bg-success/10 rounded-xl">
-                  <p className="text-2xl font-bold text-success mb-1">45</p>
-                  <p className="text-sm text-muted-foreground font-medium">Present</p>
+                  <p className="text-2xl font-[Poppins-Bold] text-success mb-1">45</p>
+                  <p className="text-sm text-muted-foreground font-[Poppins-Light]">Present</p>
                 </div>
                 <div className="p-4 bg-destructive/10 rounded-xl">
-                  <p className="text-2xl font-bold text-destructive mb-1">8</p>
-                  <p className="text-sm text-muted-foreground font-medium">Absent</p>
+                  <p className="text-2xl font-[Poppins-Bold] text-destructive mb-1">8</p>
+                  <p className="text-sm text-muted-foreground font-[Poppins-Light]">Absent</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Attendance History */}
-          <Card className="card-modern hover-lift animate-slide-up">
+          <Card className="card-modern font-[Poppins-Light] hover-lift animate-slide-up">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-xl">
                 <div className="p-2 bg-secondary/10 rounded-lg">
@@ -261,7 +261,7 @@ const StudentDashboard = () => {
                         <div className="p-2 bg-primary/10 rounded-lg">
                           {getMethodIcon(record.method)}
                         </div>
-                        <span className="text-sm font-medium">{record.date}</span>
+                        <span className="text-sm font-[Poppins-Light]">{record.date}</span>
                       </div>
                       <div className="text-right">
                         <Badge variant="outline" className="text-xs mb-1">
@@ -287,7 +287,7 @@ const StudentDashboard = () => {
         {/* Main Content */}
         <div className="xl:col-span-2 space-y-6 lg:space-y-8">
           {/* Personalized Tasks */}
-          <Card className="card-modern hover-lift animate-slide-up">
+          <Card className=" font-[Poppins-Light] card-modern hover-lift animate-slide-up">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="p-2 bg-primary/10 rounded-lg">
@@ -325,7 +325,7 @@ const StudentDashboard = () => {
           </Card>
 
           {/* Daily Routine */}
-          <Card className="card-modern hover-lift animate-slide-up">
+          <Card className="card-modern hover-lift font-[Poppins-Light] animate-slide-up">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="p-2 bg-accent/10 rounded-lg">
@@ -349,7 +349,7 @@ const StudentDashboard = () => {
                     </div>
                     <Badge 
                       variant={item.status === 'completed' ? 'default' : item.status === 'current' ? 'secondary' : 'outline'}
-                      className="capitalize px-4 py-2 text-sm font-medium"
+                      className="capitalize px-4 py-2 text-sm font-[Poppins-Light]"
                     >
                       {item.status}
                     </Badge>

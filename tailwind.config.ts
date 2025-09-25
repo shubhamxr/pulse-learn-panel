@@ -13,6 +13,14 @@ export default {
       },
     },
     extend: {
+
+            fontFamily: {
+          'Poppins-Bold' : ['Poppins-Bold','sans-serif'],
+          'Poppins-Light' :['Poppins-Light','sans-serif'],
+          'Poppins-Medium' : ['Poppins-Medium','sans-serif'] ,
+          
+              },
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -53,7 +53,7 @@ const QRScanner = () => {
               <div className="p-6 bg-success/10 rounded-2xl inline-block mb-6">
                 <CheckCircle2 className="h-24 w-24 text-success" />
               </div>
-              <h2 className="text-3xl font-bold text-success mb-3">
+              <h2 className="text-3xl font-[Poppins-Bold] text-success mb-3">
                 Attendance Marked Successfully!
               </h2>
               <p className="text-muted-foreground text-lg">
@@ -96,7 +96,7 @@ const QRScanner = () => {
             <div className="p-2 bg-primary/10 rounded-lg">
               <QrCode className="h-6 w-6 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-gradient-primary">QR Code Scanner</h1>
+            <h1 className="text-2xl font-[Poppins-Bold] text-gradient-primary">QR Code Scanner</h1>
           </div>
         </div>
       </div>
