@@ -60,7 +60,7 @@ const StudentDashboard = () => {
     setAttendanceHistory(existingHistory.slice(-5));
 
     toast({
-      title: "Marked via Bluetooth/Wi-Fi ✅",
+      title: "Marked via Bluetooth/Wi-Fi",
       description: "Attendance recorded successfully via proximity detection",
     });
   };
@@ -125,70 +125,85 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-4 lg:p-8 space-y-6 lg:space-y-8 animate-fade-in">
       {/* Welcome Section */}
-      <div className="bg-gradient-primary rounded-xl p-6 text-white">
-        <h1 className="text-3xl font-bold mb-2">Good morning, {localStorage.getItem('userName')?.split(' ')[0]}!</h1>
-        <p className="text-white/80">Ready to make today productive? Here's your personalized dashboard.</p>
+      <div className="bg-gradient-hero rounded-2xl p-6 lg:p-8 text-white shadow-large hover-glow transition-all duration-500">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
+          <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+            <Calendar className="h-8 w-8" />
+          </div>
+          <div className="text-center sm:text-left">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-2">Good morning, {localStorage.getItem('userName')?.split(' ')[0]}!</h1>
+            <p className="text-white/90 text-base lg:text-lg">Ready to make today productive? Here's your personalized dashboard.</p>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
         {/* Attendance Section */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="lg:col-span-1 space-y-8">
           {/* Today's Attendance */}
-          <Card className="shadow-soft">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-primary" />
+          <Card className="card-modern hover-lift animate-slide-up">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Calendar className="h-6 w-6 text-primary" />
+                </div>
                 Today's Attendance
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-center space-y-4">
+            <CardContent className="p-6">
+              <div className="text-center space-y-6">
                 {todayAttendance ? (
-                  <div className="space-y-2">
-                    <CheckCircle2 className="h-12 w-12 text-success mx-auto" />
-                    <p className="font-semibold text-success">Marked Present</p>
-                    <p className="text-sm text-muted-foreground">
-                      Checked in at {new Date().toLocaleTimeString()}
-                    </p>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      {getMethodIcon(attendanceMethod)}
-                      <span className="text-xs text-muted-foreground">
+                  <div className="space-y-4">
+                    <div className="p-4 bg-success/10 rounded-2xl">
+                      <CheckCircle2 className="h-16 w-16 text-success mx-auto mb-3" />
+                      <p className="font-bold text-success text-lg">Marked Present</p>
+                      <p className="text-sm text-muted-foreground">
+                        Checked in at {new Date().toLocaleTimeString()}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-center gap-3 p-3 bg-muted/50 rounded-xl">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        {getMethodIcon(attendanceMethod)}
+                      </div>
+                      <span className="text-sm font-medium text-muted-foreground">
                         via {getMethodName(attendanceMethod)}
                       </span>
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-3">
-                    <AlertCircle className="h-12 w-12 text-warning mx-auto" />
-                    <p className="font-semibold text-warning">Not Marked Yet</p>
+                  <div className="space-y-6">
+                    <div className="p-4 bg-warning/10 rounded-2xl">
+                      <AlertCircle className="h-16 w-16 text-warning mx-auto mb-3" />
+                      <p className="font-bold text-warning text-lg">Not Marked Yet</p>
+                    </div>
                     
                     {/* Multiple Attendance Methods */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Button 
                         onClick={() => navigate('/qr-scanner')}
-                        className="w-full bg-gradient-primary"
+                        className="w-full btn-primary-modern"
                       >
-                        <QrCode className="h-4 w-4 mr-2" />
+                        <QrCode className="h-5 w-5 mr-3" />
                         Scan QR Code
                       </Button>
                       
                       <Button 
                         onClick={markProximityAttendance}
                         variant="outline"
-                        className="w-full"
+                        className="w-full hover-lift"
                       >
-                        <Wifi className="h-4 w-4 mr-2" />
+                        <Wifi className="h-5 w-5 mr-3" />
                         Mark via Proximity
                       </Button>
                       
                       <Button 
                         onClick={() => setShowFaceModal(true)}
                         variant="outline"
-                        className="w-full"
+                        className="w-full hover-lift"
                       >
-                        <Camera className="h-4 w-4 mr-2" />
+                        <Camera className="h-5 w-5 mr-3" />
                         Mark via Face Recognition
                       </Button>
                     </div>
@@ -199,51 +214,57 @@ const StudentDashboard = () => {
           </Card>
 
           {/* Attendance Stats */}
-          <Card className="shadow-soft">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
+          <Card className="card-modern hover-lift animate-slide-up">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="p-2 bg-accent/10 rounded-lg">
+                  <TrendingUp className="h-6 w-6 text-accent" />
+                </div>
                 Attendance Overview
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="p-6 space-y-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">{attendancePercentage}%</div>
-                <p className="text-sm text-muted-foreground">Overall Attendance</p>
+                <div className="text-4xl font-bold text-gradient-primary mb-2">{attendancePercentage}%</div>
+                <p className="text-sm text-muted-foreground font-medium">Overall Attendance</p>
               </div>
-              <Progress value={attendancePercentage} className="h-2" />
-              <div className="grid grid-cols-2 gap-4 text-center text-sm">
-                <div>
-                  <p className="font-semibold text-success">45</p>
-                  <p className="text-muted-foreground">Present</p>
+              <Progress value={attendancePercentage} className="h-3 bg-muted" />
+              <div className="grid grid-cols-2 gap-6 text-center">
+                <div className="p-4 bg-success/10 rounded-xl">
+                  <p className="text-2xl font-bold text-success mb-1">45</p>
+                  <p className="text-sm text-muted-foreground font-medium">Present</p>
                 </div>
-                <div>
-                  <p className="font-semibold text-destructive">8</p>
-                  <p className="text-muted-foreground">Absent</p>
+                <div className="p-4 bg-destructive/10 rounded-xl">
+                  <p className="text-2xl font-bold text-destructive mb-1">8</p>
+                  <p className="text-sm text-muted-foreground font-medium">Absent</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Attendance History */}
-          <Card className="shadow-soft">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2">
-                <History className="h-5 w-5 text-primary" />
+          <Card className="card-modern hover-lift animate-slide-up">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="p-2 bg-secondary/10 rounded-lg">
+                  <History className="h-6 w-6 text-secondary" />
+                </div>
                 Recent Attendance
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               {attendanceHistory.length > 0 ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {attendanceHistory.map((record, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 bg-muted/30 rounded">
-                      <div className="flex items-center gap-2">
-                        {getMethodIcon(record.method)}
-                        <span className="text-sm">{record.date}</span>
+                    <div key={index} className="flex items-center justify-between p-4 bg-muted/30 rounded-xl hover:bg-muted/50 transition-all duration-200">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-primary/10 rounded-lg">
+                          {getMethodIcon(record.method)}
+                        </div>
+                        <span className="text-sm font-medium">{record.date}</span>
                       </div>
                       <div className="text-right">
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs mb-1">
                           {getMethodName(record.method)}
                         </Badge>
                         <p className="text-xs text-muted-foreground">{record.time}</p>
@@ -252,44 +273,51 @@ const StudentDashboard = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground text-center py-4">
-                  No attendance records yet
-                </p>
+                <div className="text-center py-8">
+                  <History className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-sm text-muted-foreground">
+                    No attendance records yet
+                  </p>
+                </div>
               )}
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="xl:col-span-2 space-y-6 lg:space-y-8">
           {/* Personalized Tasks */}
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-primary" />
+          <Card className="card-modern hover-lift animate-slide-up">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Target className="h-6 w-6 text-primary" />
+                </div>
                 Personalized Tasks for Free Time
               </CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-base">
                 AI-generated tasks based on your schedule and learning goals
               </p>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+            <CardContent className="p-6">
+              <div className="space-y-4">
                 {tasks.map((task) => (
-                  <div key={task.id} className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
-                    <div className={`w-1 h-12 rounded-full ${getPriorityColor(task.priority)}`}></div>
-                    <task.icon className="h-5 w-5 text-primary" />
+                  <div key={task.id} className="flex items-center gap-4 p-4 bg-muted/30 rounded-xl hover:bg-muted/50 transition-all duration-300 hover-lift">
+                    <div className={`w-2 h-16 rounded-full ${getPriorityColor(task.priority)} shadow-soft`}></div>
+                    <div className="p-3 bg-primary/10 rounded-xl">
+                      <task.icon className="h-6 w-6 text-primary" />
+                    </div>
                     <div className="flex-1">
-                      <h4 className="font-medium">{task.title}</h4>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Badge variant="outline" className="text-xs">{task.type}</Badge>
-                        <span className="text-xs text-muted-foreground flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
+                      <h4 className="font-semibold text-lg mb-2">{task.title}</h4>
+                      <div className="flex items-center gap-3">
+                        <Badge variant="outline" className="text-xs px-3 py-1">{task.type}</Badge>
+                        <span className="text-sm text-muted-foreground flex items-center gap-2">
+                          <Clock className="h-4 w-4" />
                           {task.duration}
                         </span>
                       </div>
                     </div>
-                    <Button size="sm" variant="ghost">Start</Button>
+                    <Button size="sm" variant="outline" className="hover-lift">Start</Button>
                   </div>
                 ))}
               </div>
@@ -297,29 +325,31 @@ const StudentDashboard = () => {
           </Card>
 
           {/* Daily Routine */}
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
+          <Card className="card-modern hover-lift animate-slide-up">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="p-2 bg-accent/10 rounded-lg">
+                  <Clock className="h-6 w-6 text-accent" />
+                </div>
                 Today's Schedule
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+            <CardContent className="p-6">
+              <div className="space-y-4">
                 {schedule.map((item, index) => (
-                  <div key={index} className="flex items-center gap-4 p-3 rounded-lg border border-border">
-                    <div className="text-center min-w-20">
-                      <p className="text-sm font-medium">{item.time}</p>
+                  <div key={index} className="flex items-center gap-6 p-4 rounded-xl border border-border/50 hover:border-border hover:shadow-soft transition-all duration-300">
+                    <div className="text-center min-w-24 p-3 bg-muted/30 rounded-xl">
+                      <p className="text-sm font-semibold">{item.time}</p>
                     </div>
                     <div className="flex-1">
-                      <h4 className={`font-medium ${getStatusColor(item.status)}`}>{item.subject}</h4>
+                      <h4 className={`font-semibold text-lg ${getStatusColor(item.status)}`}>{item.subject}</h4>
                       {item.room !== '-' && (
-                        <p className="text-sm text-muted-foreground">{item.room}</p>
+                        <p className="text-sm text-muted-foreground mt-1">{item.room}</p>
                       )}
                     </div>
                     <Badge 
                       variant={item.status === 'completed' ? 'default' : item.status === 'current' ? 'secondary' : 'outline'}
-                      className="capitalize"
+                      className="capitalize px-4 py-2 text-sm font-medium"
                     >
                       {item.status}
                     </Badge>

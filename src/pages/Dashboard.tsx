@@ -31,7 +31,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar userName={userName} userType={userType} />
-      <main className="pt-16">
+      <main className="pt-20">
         {userType === 'student' ? <StudentDashboard /> : <TeacherDashboard />}
       </main>
     </div>
