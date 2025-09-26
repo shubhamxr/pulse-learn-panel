@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import QRScanner from "./pages/QRScanner";
 import NotFound from "./pages/NotFound";
 import LectureDetails from "./components/LectureDetails";
+import PersonalizedTasks from "./components/PersonalizedTasks";
 
 const queryClient = new QueryClient();
 
@@ -16,13 +17,18 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/qr-scanner" element={<QRScanner />} />
           <Route path="/lecture/:id" element={<LectureDetails />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/personalized-tasks" element={<PersonalizedTasks />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
